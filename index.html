@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -28,13 +29,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--neon);transition:width .25s}
 .nav-links a:hover{color:var(--neon)}
 .nav-links a:hover::after{width:100%}
-.admin-link{font-size:.68rem;padding:.3rem .8rem;border:1px solid var(--border);border-radius:20px;color:var(--muted);text-decoration:none;transition:all .2s;margin-left:.5rem}
-.admin-link:hover{color:var(--neon);border-color:var(--neon)}
-section{position:relative;z-index:1;min-height:100vh;padding:7rem 5rem 4rem;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;justify-content:center}
-.section-label{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neon);margin-bottom:.6rem;display:flex;align-items:center;gap:.7rem}
+section{position:relative;z-index:1;min-height:auto;padding:5rem 3rem 3rem;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;justify-content:flex-start}
+section[id]{scroll-margin-top:140px}
+#hero{padding-top:7rem}
+.section-label{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neon);margin-bottom:.4rem;display:flex;align-items:center;gap:.7rem}
 .section-label::before{content:'';display:inline-block;width:24px;height:1px;background:var(--neon)}
 h2{font-family:var(--sans);font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:2rem}
-#hero{padding-top:9rem}
 .hero-layout{display:flex;align-items:center;justify-content:space-between;gap:4rem}
 .hero-left{flex:1;min-width:0}
 .hero-tag{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--neon);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
@@ -157,7 +157,6 @@ footer span{color:var(--neon)}
     <li><a href="#projects">Projects</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="admin.html" class="admin-link">⚙ Admin</a></li>
   </ul>
 </nav>
 <section id="hero">
@@ -178,7 +177,7 @@ footer span{color:var(--neon)}
           onerror="this.style.display='none';document.getElementById('pf').style.display='flex'"/>
         <div class="photo-placeholder" id="pf">
           <span class="pi">📸</span>
-          <span class="pt">Upload photo in Admin → Profile</span>
+          <span class="pt">Add photo URL in the code</span>
         </div>
         <div class="photo-ring"></div><div class="photo-ring2"></div>
         <div class="photo-dot photo-dot-1"></div>
@@ -194,8 +193,8 @@ footer span{color:var(--neon)}
   <p class="section-label reveal">About me</p>
   <h2 class="reveal">Who I am.</h2>
   <div class="about-grid">
-    <div class="about-text reveal" id="about-text"></div>
-    <div class="about-card reveal" id="about-card"></div>
+  <div class="about-text" id="about-text"></div>
+    <div class="about-card" id="about-card"></div>
   </div>
 </section>
 <section id="skills">
@@ -214,39 +213,39 @@ footer span{color:var(--neon)}
   <div class="blog-list" id="blog-list"></div>
 </section>
 <section id="contact">
-  <p class="section-label reveal">Get in touch</p>
-  <h2 class="reveal">Contact.</h2>
+  <p class="section-label">Get in touch</p>
+  <h2>Contact.</h2>
   <div class="contact-wrap">
-    <div class="contact-info reveal">
+    <div class="contact-info">
       <p>I'm a student always open to internships, collaborations, or a good conversation about tech.</p>
-      <p>Best way to reach me is email — I reply within 24 hours.</p>
+      <p>Best way to reach me is email — <a href="mailto:bhattaraisamir.34@gmail.com">bhattaraisamir.34@gmail.com</a>.</p>
       <div class="socials-grid" id="socials-grid"></div>
     </div>
-    <form class="reveal" onsubmit="handleSubmit(event)">
-      <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" required/></div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com" required/></div>
-      <div class="form-group"><label>Message</label><textarea placeholder="What's on your mind?" required></textarea></div>
+    <form onsubmit="handleSubmit(event)">
+      <div class="form-group"><label>Name</label><input id="contact-name" type="text" placeholder="Your name" required/></div>
+      <div class="form-group"><label>Email</label><input id="contact-email" type="email" placeholder="your@email.com" required/></div>
+      <div class="form-group"><label>Message</label><textarea id="contact-message" placeholder="What's on your mind?" required></textarea></div>
       <button type="submit" class="btn btn-primary">Send Message →</button>
-      <div class="form-status" id="form-status">✓ Message sent! I'll get back to you soon.</div>
+      <div class="form-status" id="form-status">✓ Email draft opened in your mail app.</div>
     </form>
   </div>
 </section>
 <footer id="footer"></footer>
 
 <script>
-// ─── Defaults shown when Admin hasn't saved anything yet ───────────────────
-const DEFAULTS = {
+// ─── Static portfolio data - edit these values directly in the code ───────────────────
+const D = {
   profile: {
-    name:     'Samir',
-    email:    'samir@email.com',
-    college:  'Your College',
+    name:     'Samir Bhattarai',
+    email:    'bhattaraisamir.34@gmail.com',
+    college:  'Banaras Hindu University',
     year:     '2nd Year · 4th Sem',
-    location: 'India',
-    focus:    'Web · AI · Security',
-    status:   'Available for internships',
-    bio:      'CS student passionate about building things at the intersection of AI and web. I love turning ideas into real products — whether it\'s a slick frontend, a backend API, or an ML experiment.',
-    tagline:  'Building things with code, breaking them with curiosity.',
-    photo:    '',
+    location: 'Biratnagar, Nepal',
+    focus:    'AI · Web Development · Cyber Security',
+    status:   'Open for internships',
+    bio:      'Computer science student at Banaras Hindu University with hands-on experience in AI, web development, and cyber security.',
+    tagline:  'Building real solutions in AI, web, and security.',
+    photo:    'https://raw.githubusercontent.com/equivocalswain/Portfolio-Website/main/images/MarketingChairperson.jpg',
   },
   stats: [
     { num:'4',  suffix:'th', label:'Semester'  },
@@ -255,36 +254,30 @@ const DEFAULTS = {
   ],
   skills: [
     {
-      title:'Frontend',
-      color:'green',
-      tags:['HTML','CSS','JavaScript','React','TailwindCSS'],
-      bars:[{name:'HTML/CSS',percent:90},{name:'JavaScript',percent:80},{name:'React',percent:70}],
-    },
-    {
-      title:'Backend',
+      title:'Web Development',
       color:'blue',
-      tags:['Node.js','Python','Express','REST APIs','MongoDB'],
-      bars:[{name:'Python',percent:85},{name:'Node.js',percent:72}],
-    },
-    {
-      title:'Tools & Other',
-      color:'purple',
-      tags:['Git','Linux','VS Code','Figma','Docker'],
-      bars:[{name:'Git',percent:88}],
+      tags:['HTML','CSS','JavaScript','Java','Python','C'],
+      bars:[
+        {name:'HTML/CSS',percent:90},
+        {name:'JavaScript',percent:85},
+        {name:'Java',percent:80},
+        {name:'Python',percent:80},
+        {name:'C',percent:75},
+      ],
     },
   ],
   projects: [
     {
       title:'Portfolio Website',
-      desc:'This portfolio — built from scratch with vanilla HTML, CSS and JS. Features a custom admin panel, animated cursor, scroll reveals and localStorage-driven content management.',
+      desc:'This portfolio — built from scratch with vanilla HTML, CSS and JS. Features animated cursor, scroll reveals and responsive design.',
       tags:['HTML','CSS','JS'],
-      github:'',
-      live:'',
+      github:'https://github.com/yourusername/portfolio',
+      live:'https://yourusername.github.io/portfolio',
       coming:false,
     },
     {
       title:'Your Next Project',
-      desc:'Add your real projects via the Admin panel. You can include GitHub and live demo links, tech stack tags, and a short description.',
+      desc:'Add your real projects by editing this code directly. Include GitHub and live demo links, tech stack tags, and descriptions.',
       tags:['Coming Soon'],
       github:'',
       live:'',
@@ -300,25 +293,12 @@ const DEFAULTS = {
     },
   ],
   socials: [
-    { name:'GitHub',   icon:'🐙', url:'https://github.com/' },
-    { name:'LinkedIn', icon:'💼', url:'https://linkedin.com/' },
-    { name:'Email',    icon:'✉️', url:'mailto:samir@email.com' },
+    { name:'GitHub',   icon:'🐙', url:'https://github.com/equivocalswain' },
+    { name:'LinkedIn', icon:'💼', url:'https://linkedin.com/in/equivocalswain' },
+    { name:'Instagram',icon:'📸', url:'https://instagram.com/equivocalswain' },
+    { name:'Facebook', icon:'📘', url:'https://facebook.com/equivocalswain' },
+    { name:'Email',    icon:'✉️', url:'mailto:bhattaraisamir.34@gmail.com' },
   ],
-};
-
-// Merge: use saved data if available, otherwise use defaults above
-function load(key, fallback){
-  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
-  catch(e){ return fallback; }
-}
-
-const D = {
-  profile:  load('pf_profile',  DEFAULTS.profile),
-  stats:    load('pf_stats',    DEFAULTS.stats),
-  skills:   load('pf_skills',   DEFAULTS.skills),
-  projects: load('pf_projects', DEFAULTS.projects),
-  blog:     load('pf_blog',     DEFAULTS.blog),
-  socials:  load('pf_socials',  DEFAULTS.socials),
 };
 
 function build(){
@@ -356,19 +336,19 @@ function build(){
   // Skills
   if(D.skills.length){
     document.getElementById('skills-grid').innerHTML = D.skills.map(sk=>`
-      <div class="skill-card reveal">
+      <div class="skill-card">
         <div class="skill-card-title">${sk.title}</div>
         <div class="skill-tags">${sk.tags.map(t=>`<span class="skill-tag tag-${sk.color}">${t}</span>`).join('')}</div>
         ${sk.bars.map(b=>`<div class="skill-bar-wrap"><div class="skill-bar-label"><span>${b.name}</span><span>${b.percent}%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="${b.percent}"></div></div></div>`).join('')}
       </div>`).join('');
   } else {
-    document.getElementById('skills-grid').innerHTML = `<div class="empty-state reveal" style="grid-column:1/-1">No skills added yet — <a href="admin.html">open Admin</a> to add some.</div>`;
+    document.getElementById('skills-grid').innerHTML = `<div class="empty-state" style="grid-column:1/-1">No skills added yet — edit the skills array in the code to add some.</div>`;
   }
 
   // Projects
   if(D.projects.length){
     document.getElementById('projects-grid').innerHTML = D.projects.map((pr,i)=>`
-      <div class="project-card reveal${pr.coming?' coming':''}">
+      <div class="project-card${pr.coming?' coming':''}">
         <div class="project-num">${String(i+1).padStart(2,'0')} ——</div>
         <div class="project-title">${pr.title}</div>
         <p class="project-desc">${pr.desc}</p>
@@ -381,18 +361,18 @@ function build(){
         </div>
       </div>`).join('');
   } else {
-    document.getElementById('projects-grid').innerHTML = `<div class="empty-state reveal" style="grid-column:1/-1">No projects added yet — <a href="admin.html">open Admin</a> to add some.</div>`;
+    document.getElementById('projects-grid').innerHTML = `<div class="empty-state" style="grid-column:1/-1">No projects added yet — edit the projects array in the code to add some.</div>`;
   }
 
   // Blog
   if(D.blog.length){
     document.getElementById('blog-list').innerHTML = D.blog.map(b=>`
-      <a href="${b.url||'#'}" class="blog-card reveal">
+      <a href="${b.url||'#'}" class="blog-card">
         <div><div class="blog-title">${b.title}</div><div class="blog-excerpt">${b.excerpt}</div></div>
         <div style="text-align:right;flex-shrink:0"><div class="blog-date">${b.date}</div><div class="blog-arrow">→</div></div>
       </a>`).join('');
   } else {
-    document.getElementById('blog-list').innerHTML = `<div class="empty-state reveal">No blog posts yet — <a href="admin.html">open Admin</a> to add some.</div>`;
+    document.getElementById('blog-list').innerHTML = `<div class="empty-state">No blog posts yet — edit the blog array in the code to add some.</div>`;
   }
 
   // Socials
@@ -405,8 +385,7 @@ function build(){
   }
 
   document.getElementById('footer').innerHTML =
-    `<p>Built with <span>♥</span> by <span>${p.name}</span> · 2026</p>
-     <p style="margin-top:.4rem;opacity:.5">Made from scratch — no templates, no frameworks.</p>`;
+    `<p>© 2026 Samir Bhattarai. All rights reserved.</p>`;
 
   attachReveal();
   attachBars();
@@ -436,7 +415,26 @@ const secs=document.querySelectorAll('section[id]');
 window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-220)cur=s.id;});document.querySelectorAll('.nav-links a').forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--neon)':'';});});
 
 // Contact form
-function handleSubmit(e){e.preventDefault();const s=document.getElementById('form-status');s.style.display='block';e.target.reset();setTimeout(()=>s.style.display='none',4000);}
+function handleSubmit(e){
+  e.preventDefault();
+  const name=document.getElementById('contact-name').value.trim();
+  const email=document.getElementById('contact-email').value.trim();
+  const message=document.getElementById('contact-message').value.trim();
+  const subject=encodeURIComponent(`Portfolio contact from ${name}`);
+  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  const mailto = `mailto:bhattaraisamir.34@gmail.com?subject=${subject}&body=${body}`;
+  window.location.href = mailto;
+  const s=document.getElementById('form-status');
+  s.textContent='✓ Email draft opened in your mail app.';
+  s.style.display='block';
+  e.target.reset();
+  setTimeout(()=>s.style.display='none',4000);
+}
+
+// Force reveal elements visible if anchor jump doesn't trigger observer
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
+});
 </script>
 </body>
 </html>
